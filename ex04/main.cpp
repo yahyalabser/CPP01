@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
 
 std::string replace_line(const std::string& line, const std::string& s1, const std::string& s2)
 {
@@ -32,7 +33,7 @@ int main(int argc, char *argv[])
 {
    if (argc != 4)
    {
-      std::cerr << "Invalid number of arguments" << std::endl;
+      std::cerr << "Usage: " << argv[0] << " <file> <s1> <s2>" << std::endl;
       return (1);
    }
 
@@ -48,16 +49,16 @@ int main(int argc, char *argv[])
    std::ifstream file(argv[1]);
    if (!file)
    {
-      std::cerr << "Error: cannot open input file!" << std::endl;
+      std::cerr << "Error: cannot open file '" << argv[1] << "'" << std::endl;
       return (1);
    }
 
-   std::string file_name = argv[1];
-   file_name.append(".replace");
-   std::ofstream file_replace(file_name);
-   if (!file_replace)
+   std::string output_name = argv[1];
+   output_name.append(".replace");
+   std::ofstream output_file(output_name);
+   if (!output_file)
    {
-      std::cerr << "Error: cannot create output file!"  << std::endl;
+      std::cerr << "Error: cannot create output file '" << output_name << "'" << std::endl;
       return (1);
    }
 
@@ -66,7 +67,7 @@ int main(int argc, char *argv[])
    while (std::getline(file, line))
    {
       is_empty = false;
-      file_replace << replace_line(line, s1, s2) << std::endl;
+      output_file << replace_line(line, s1, s2) << std::endl;
    }
 
    if (is_empty)

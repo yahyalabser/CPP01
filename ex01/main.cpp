@@ -11,19 +11,19 @@
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
+#include <climits>
+
 
 int getN(void)
 {
    std::string index;
-
    while(true)
    {
-      int i = 0;
-      int nbr = 0;
       std::cout << "Insert number of zombies: ";
-      std::getline(std::cin, index);
-      if (index.empty())
-         continue;
+      if (!std::getline(std::cin, index) ||index.empty()) continue;
+
+      int nbr = 0;
+      int i = 0;
       while (index[i])
       {
          if (index[i] < '0' || index[i] > '9')
@@ -35,8 +35,7 @@ int getN(void)
          nbr = nbr * 10 + (index[i] - '0');
          i++;
       }
-      if (nbr > 0)
-         return (nbr);
+      if (nbr > 0 && nbr <= INT_MAX) return (nbr);
    }
    return (0);
 }
@@ -44,15 +43,11 @@ int getN(void)
 std::string getName(void)
 {
    std::string name;
-
    while (true)
    {
       std::cout << "Name the zombies: ";
-      std::getline(std::cin, name);
-      if (name.empty())
-         continue;
-      else
-         break;
+      if (!std::getline(std::cin, name)) continue;
+      if (!name.empty()) break;
    }
    return (name);
 }
@@ -61,14 +56,12 @@ int main()
 {
    int N = getN();
    std::string name = getName();
+
    Zombie* zombies = zombieHorde(N, name);
 
-   int i = 0;
-   while (i < N)
-   {
+   for (int i = 0; i < N; i++)
       zombies[i].announce();
-      i++;
-   }
-   delete []zombies;
+   
+   delete[] zombies;
    return (0);
 }

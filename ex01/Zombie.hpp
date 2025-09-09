@@ -22,7 +22,6 @@ class Zombie{
 
    public:
       Zombie();
-      Zombie(std::string name);
       ~Zombie();
       void announce( void );
       void addName(std::string name);

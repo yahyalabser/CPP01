@@ -16,10 +16,17 @@ int main()
 {
    Harl harl;
 
+   std::cout << "=== Testing all levels ===" << std::endl;
    harl.complain("DEBUG");
    harl.complain("INFO");
    harl.complain("WARNING");
    harl.complain("ERROR");
+   
+   std::cout << "\n=== Testing invalid levels ===" << std::endl;
+   harl.complain("");
    harl.complain("a");
+   harl.complain("DEBUGINFO");
+   harl.complain("123");
+   
    return(0);
 }
